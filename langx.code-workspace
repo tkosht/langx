@@ -28,13 +28,13 @@
             "ms-python.flake8",
             "ms-python.isort",
             "ms-toolsai.jupyter",
-            "ms-toolsai.datawrangler",
-            "ms-vscode.live-server",
-            "prompt-flow.prompt-flow",
             "oderwat.indent-rainbow",
             "donjayamanne.githistory",
             "bracketpaircolordlw.bracket-pair-color-dlw",
-            "hediet.vscode-drawio",
+            // "ms-toolsai.datawrangler",
+            // "prompt-flow.prompt-flow",
+            // "hediet.vscode-drawio",
+            // "ms-vscode.live-server",
         ]
     }
 }
