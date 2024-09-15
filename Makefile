@@ -3,7 +3,6 @@ default: all
 all: up
 
 
-
 # ==========
 # interaction tasks
 bash:
@@ -39,7 +38,7 @@ mode-nooverride:
 pip: _pip commit
 
 _pip:
-	docker compose exec app python -m pip install -r requirements.txt         # too slow
+	docker compose exec app python -m pip install --user -U -r requirements.txt         # too slow
 
 commit:
 	@echo "$$(date +'%Y/%m/%d %T') - Start $@"
@@ -81,5 +80,4 @@ clean: clean-container
 
 clean-container:
 	docker compose down --rmi all
-	rm -rf app/__pycache__
 

@@ -25,10 +25,12 @@ services:
       - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
       - DISPLAY=localhost:10.0
+      - LANGFLOW_DATABASE_URL=sqlite:///./data/langflow.db
     sysctls:
       - net.core.somaxconn=$somaxconn
       - net.ipv4.tcp_syncookies=0
     ports:
       - "17860:7860"     # gradio/langflow
-    # command: langflow --host 0.0.0.0
+    command: >
+      python -m langflow run --host=0.0.0.0
 
