@@ -30,5 +30,5 @@ services:
       - net.ipv4.tcp_syncookies=0
     ports:
       - "17860:7860"     # gradio/langflow
-    command: langflow --host 0.0.0.0
+    # command: langflow --host 0.0.0.0
 

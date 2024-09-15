@@ -1,8 +1,8 @@
 default: all
 
-all: up install
+all: up
 
-install: backend-poetry-install
+
 
 # ==========
 # interaction tasks
@@ -61,9 +61,6 @@ load:
 up:
 	docker compose up -d
 
-ssh:
-	docker compose exec app sudo service ssh start
-
 active:
 	docker compose up
 
@@ -80,47 +77,9 @@ build-no-cache:
 
 reup: down up
 
-clean: clean-container backend-clean clean-logs
-
-clean-all: clean clean-database
-
-clean-logs:
-	rm -rf log/*.log
-
-clean-database:
-	rm -rf data/postgres
-
-clean-graphdb:
-	sudo rm -rf data/neo4j
+clean: clean-container
 
 clean-container:
 	docker compose down --rmi all
 	rm -rf app/__pycache__
 
-# ==========
-# frontend tasks
-frontend-install frontend-init frontend-ci frontend-prod frontend-dev frontend-unit frontend-e2e : up
-	$(eval task_name=$(shell echo "$@" | perl -pe 's/frontend-//'))
-	@echo "runnning task @ frontend: $(task_name)"
-	docker compose exec app sudo service dbus start
-	docker compose exec app bash -c "cd frontend && make $(task_name)"
-
-frontend-restore: frontend-ci
-
-# ==========
-# backend tasks
-backend-demo backend-poetry-install backend-poetry backend-demo-stream backend-demo-code-interpreter: up
-	$(eval task_name=$(shell echo "$@" | perl -pe 's/backend-//'))
-	@echo "runnning task @ backend: $(task_name)"
-	docker compose exec app bash -c "cd backend && make $(task_name)"
-
-backend-campfire-data backend-ls: up
-	$(eval task_name=$(shell echo "$@" | perl -pe 's/backend-//'))
-	@echo "runnning task @ backend: $(task_name) with poetry"
-	docker compose exec app bash -c 'cd backend && $$HOME/.local/bin/poetry run make $(task_name)'
-
-
-backend-clean:
-	$(eval task_name=$(shell echo "$@" | perl -pe 's/backend-//'))
-	@echo "runnning task @ backend: $(task_name)"
-	cd backend && make $(task_name)
