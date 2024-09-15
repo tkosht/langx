@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -32,9 +30,9 @@ services:
       - net.core.somaxconn=$somaxconn
       - net.ipv4.tcp_syncookies=0
     ports:
-      - "3006:3006"     # for Streamsync
-      - "7860:7860"     # gradio
-      - "8501:8501"     # streamlit
+      - "17860:7860"     # gradio
+    #   - "8501:8501"     # streamlit
+    #   - "3006:3006"     # for Streamsync
     #   - "5000:5000"   # MLflow
     #   - "5656:5656"   # sqlite-web
     #   - "6006:6006"   # tensorboard

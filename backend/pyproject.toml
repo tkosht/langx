@@ -9,56 +9,56 @@ packages = [{include = "app"}]
 
 
 [tool.poetry.dependencies]
-python = ">=3.10, <3.12"        # <3.12 for sktime
+python = ">=3.10"
 
 
-# for data science
-numpy = "*"
-pandas = "*"
-fireducks = "*"
-dask = {extras = ["complete"], version = "*"}
-scikit-learn = "*"
-scipy = "*"
-mlxtend = "*"
-sympy = "*"
-tqdm = "*"
-matplotlib = "*"
-seaborn = "*"
-plotly = "*"
-pandasgui = "*"
-pandas-profiling = "*"
-pygwalker = "*"
-scikit-optimize = "*"
-optuna = "*"
-memory_profiler = "*"
-lime = "*"
-shap = "*"
-# pyyaml = "5.3.1"
-pyyaml = "*"
-
-PyQt5 = "=5.15.2"
-lit = "^17.0.2"
-ipynb = "*"
+# # for data science
+# numpy = "*"
+# pandas = "*"
+# fireducks = "*"
+# dask = {extras = ["complete"], version = "*"}
+# scikit-learn = "*"
+# scipy = "*"
+# mlxtend = "*"
+# sympy = "*"
+# tqdm = "*"
+# matplotlib = "*"
+# seaborn = "*"
+# plotly = "*"
+# pandasgui = "*"
+# pandas-profiling = "*"
+# pygwalker = "*"
+# scikit-optimize = "*"
+# optuna = "*"
+# memory_profiler = "*"
+# lime = "*"
+# shap = "*"
+# # pyyaml = "5.3.1"
+# pyyaml = "*"
+# 
+# PyQt5 = "=5.15.2"
+# lit = "^17.0.2"
+# ipynb = "*"
 
 # for experiment management
 
-# crawler
-scrapy = "*"
-selenium = "*"
-webdriver_manager = "*"
-retry = "*"
-firecrawl-py = "*"
+# # crawler
+# scrapy = "*"
+# selenium = "*"
+# webdriver_manager = "*"
+# retry = "*"
+# firecrawl-py = "*"
 
 
 # Database
 
-# other tools
-omegaconf = "*"
-notebook = "*"
-python-dotenv = "*"
-ulid-py = "*"
-typer = "*"
-simplejson = "*"
+# # other tools
+# omegaconf = "*"
+# notebook = "*"
+# python-dotenv = "*"
+# ulid-py = "*"
+# typer = "*"
+# simplejson = "*"
 
 
 # # for project
@@ -69,49 +69,49 @@ simplejson = "*"
 # # for langchain
 langchain = "^0.0.354"
 langchain-experimental = "*"
-langgraph="*"
-langchain_openai = "*"
-langchain-google-genai = "*"
-langsmith = "*"
-langfuse = "*"
 langflow = "*"
+langfuse = "*"
+# langsmith = "*"
+# langgraph="*"
 
-tavily-python = "*"
-openai = "*"
-google-search-results = "*"
-google-api-python-client = "*"
-google-generativeai = "*"
-pillow = "*"
+# openai = "*"
+# langchain_openai = "*"
+# langchain-google-genai = "*"
 
-tiktoken = "*"
-sentence_transformers = "*"
-faiss-gpu = "*"
-trafilatura = "*"
-llama-index = "*"
-llama-index-embeddings-huggingface = "*"
-llama-index-embeddings-langchain = "*"
-llama-index-llms-anthropic = "*"
-llama-index-readers-notion = "*"
-llama-index-packs-sentence-window-retriever = "*"
-llama-index-vector-stores-faiss = "*"
-llama-index-postprocessor-rankgpt-rerank = "*"
+# tavily-python = "*"
+# google-search-results = "*"
+# google-api-python-client = "*"
+# google-generativeai = "*"
+# pillow = "*"
+
+# tiktoken = "*"
+# sentence_transformers = "*"
+# faiss-gpu = "*"
+# trafilatura = "*"
+# llama-index = "*"
+# llama-index-embeddings-huggingface = "*"
+# llama-index-embeddings-langchain = "*"
+# llama-index-llms-anthropic = "*"
+# llama-index-readers-notion = "*"
+# llama-index-packs-sentence-window-retriever = "*"
+# llama-index-vector-stores-faiss = "*"
+# llama-index-postprocessor-rankgpt-rerank = "*"
 
 dify-client = "*"
-promptflow = "*"
-promptflow-tools = "*"
 ragas = "*"
+# promptflow = "*"
+# promptflow-tools = "*"
 
-
-# PDF
-pypdf = "*"
-pymupdf = "*"
-pymupdf4llm = "*"
-cryptography = "*"
-# pdfminer.six = "*"
-# pycryptodome = "*"
-# pandas_datareader = "*"
-azure-ai-documentintelligence = "*"
-unstructured = {extras = ["pdf"], version = "*"}
+# # PDF
+# pypdf = "*"
+# pymupdf = "*"
+# pymupdf4llm = "*"
+# cryptography = "*"
+# # pdfminer.six = "*"
+# # pycryptodome = "*"
+# # pandas_datareader = "*"
+# azure-ai-documentintelligence = "*"
+# unstructured = {extras = ["pdf"], version = "*"}
 
 
 [tool.poetry.dev-dependencies]

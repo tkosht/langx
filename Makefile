@@ -95,7 +95,7 @@ clean-graphdb:
 
 clean-container:
 	docker compose down --rmi all
-	sudo rm -rf app/__pycache__
+	rm -rf app/__pycache__
 
 # ==========
 # frontend tasks
