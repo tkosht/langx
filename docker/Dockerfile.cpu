@@ -44,7 +44,8 @@ ENV LANG="ja_JP.UTF-8" \
     TERM="xterm"
 
 
-RUN python -m pip install --upgrade pip         # ==21.0.1
+RUN python -m pip install --upgrade pip
+RUN python -m pip install -U langflow langchain langchain-experimental langfuse dify-client ragas
 
 # upgrade system
 RUN apt-get upgrade -y \
@@ -74,9 +75,6 @@ USER $user_name
 
 # Poetry
 RUN curl -sSL https://install.python-poetry.org | python3 -
-
-# deta space
-RUN curl -fsSL https://deta.space/assets/space-cli.sh | sh
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=dialog

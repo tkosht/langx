@@ -23,20 +23,12 @@ services:
     working_dir: /home/$user_name/workspace
     environment:
       - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - DISPLAY=localhost:10.0
       - DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+      - DISPLAY=localhost:10.0
     sysctls:
       - net.core.somaxconn=$somaxconn
       - net.ipv4.tcp_syncookies=0
     ports:
-      - "17860:7860"     # gradio
-    #   - "8501:8501"     # streamlit
-    #   - "3006:3006"     # for Streamsync
-    #   - "5000:5000"   # MLflow
-    #   - "5656:5656"   # sqlite-web
-    #   - "6006:6006"   # tensorboard
-    #   - "8000:8000"   # webapi
-    #   - "8080:8080"   # vue
-    #   - "9229:9229"   # node debugger
+      - "17860:7860"     # gradio/langflow
+    command: langflow --host 0.0.0.0
 

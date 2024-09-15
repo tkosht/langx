@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "experiment-backend"
 version = "0.1.0"
-description = "backend experiment project"
+description = "langx project"
 authors = ["tkosht"]
 license = "MIT"
 readme = "README.md"
@@ -67,10 +67,11 @@ python = ">=3.10"
 
 # LLM relatives
 # # for langchain
-langchain = "^0.0.354"
-langchain-experimental = "*"
-langflow = "*"
-langfuse = "*"
+# langchain = "^0.0.354"
+# langchain = "*"
+# langchain-experimental = "*"
+# langflow = "*"
+# langfuse = "*"
 # langsmith = "*"
 # langgraph="*"
 
@@ -97,7 +98,7 @@ langfuse = "*"
 # llama-index-vector-stores-faiss = "*"
 # llama-index-postprocessor-rankgpt-rerank = "*"
 
-dify-client = "*"
+# dify-client = "*"
 ragas = "*"
 # promptflow = "*"
 # promptflow-tools = "*"
@@ -112,6 +113,7 @@ ragas = "*"
 # # pandas_datareader = "*"
 # azure-ai-documentintelligence = "*"
 # unstructured = {extras = ["pdf"], version = "*"}
+matplotlib = "^3.9.2"
 
 
 [tool.poetry.dev-dependencies]
