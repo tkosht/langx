@@ -1,0 +1,48 @@
+{
+    "folders": [
+        {
+            "name": "root",
+            "path": "."
+        },
+        {
+            "name": "backend",
+            "path": "backend"
+        },
+        {
+            "name": "frontend",
+            "path": "frontend"
+        }
+    ],
+    "settings": {
+        "notebook.formatOnSave.enabled": true,
+        "notebook.formatOnCellExecution": true,
+        "[python]": {
+            "editor.defaultFormatter": "ms-python.black-formatter",
+            "editor.codeActionsOnSave": {
+                "source.organizeImports": "explicit"
+            }
+        },
+        // "python.formatting.provider": "none",
+        "isort.args": [
+            "--profile",
+            "black",
+        ]
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.vscode-pylance",
+            "ms-python.black-formatter",
+            "ms-python.flake8",
+            "ms-python.isort",
+            "ms-toolsai.jupyter",
+            "ms-toolsai.datawrangler",
+            "ms-vscode.live-server",
+            "prompt-flow.prompt-flow",
+            "oderwat.indent-rainbow",
+            "donjayamanne.githistory",
+            "bracketpaircolordlw.bracket-pair-color-dlw",
+            "hediet.vscode-drawio",
+        ]
+    }
+}

@@ -1,0 +1,33 @@
+version: 2
+jobs:
+  pytest:
+    docker:
+      - image: tkosht/webapi:latest
+    steps:
+      - checkout
+      - run: cd backend && make test-unit
+  jest:
+    docker:
+      - image: tkosht/webapi:latest
+    steps:
+      - checkout
+      - run: cd frontend && make test-unit
+  e2e:
+    docker:
+      - image: tkosht/webapi:latest
+    steps:
+      - checkout
+      - run: sudo service dbus start
+      - run: cd frontend && make ci prod
+      - run:
+          command: cd backend && make webapi
+          background: true
+      - run: cd frontend && make e2e
+
+workflows:
+  version: 2
+  workflow_tests:
+    jobs:
+    - pytest
+    - jest
+    - e2e

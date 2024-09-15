@@ -1,0 +1,52 @@
+services:
+  postgresql:
+    image: postgres:latest
+    container_name: $pj_name.postgresql
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=campfire_db
+      - PGPORT=5431
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    ports:
+      - "5431:5431"     # postgresql
+    # command: -p 5431
+
+  neo4j:
+    image: neo4j:latest
+    container_name: $pj_name.neo4j
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.neo4j
+    environment:
+      - NEO4J_AUTH=$neo4j_user/$neo4j_pswd
+      - NEO4JLABS_PLUGINS=["apoc"]
+    volumes:
+      - ./data/neo4j/data:/data
+      - ./data/neo4j/logs:/logs
+      - ./data/neo4j/import:/var/lib/neo4j/import
+      - ./data/neo4j/plugins:/var/lib/neo4j/plugins
+      # - ./conf:/var/lib/neo4j/conf
+    ports:
+      - "7474:7474"     # for HTTP
+      - "7687:7687"     # for Bolt
+
+#   metabase:
+#     image: metabase/metabase
+#     ports:
+#       - "3000:3000"     # for Metabase
+#     volumes:
+#       - ./data/metabase:/metabase-data
+#     # restart: always
+#     # environment:
+#     #   MB_DB_TYPE: postgres
+#     #   MB_DB_DBNAME: campfire_db
+#     #   MB_DB_PORT: 5432
+#     #   MB_DB_USER: postgres
+#     #   MB_DB_PASS: postgres
+#     #   MB_DB_HOST: postgresql
+#     depends_on:
+#       - postgresql
+

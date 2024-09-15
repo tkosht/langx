@@ -1,0 +1,31 @@
+{
+	"name": "Experiment Project",
+	"dockerComposeFile": [
+		"../compose.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/home/devuser/workspace",
+	"settings": {
+		"terminal.integrated.profiles.linux": {
+			"zsh (login)": {
+				"path": "bash",
+				"args": [
+					"-l"
+				]
+			}
+		},
+		"python.pythonPath": "/usr/bin/python",
+		"python.formatting.provider": "black",
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": false
+	},
+	"extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.flake8",
+        "ms-python.isort",
+        "ms-toolsai.jupyter",
+        "ms-vscode.live-server"
+	]
+}

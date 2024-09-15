@@ -1,0 +1,19 @@
+{
+  "files.exclude": {
+    "backend/**": true,
+    "frontend/**": true,
+    ".pytest_cache/**": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.venv/**": true,
+    "**/node_modules/*/**": true,
+    "**/result/**": true,
+    "**/mlruns/**": true,
+    "**/data/**": true,
+    "**/*cache*/**": true,
+    "**/wk/**": true,
+    "**/bk/**": true
+  }
+}

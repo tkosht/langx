@@ -1,0 +1,127 @@
+FROM nvidia/cuda:11.8.0-devel-ubuntu22.04
+
+LABEL maintainer="tkosht <takehito.oshita.business@gmail.com>"
+
+ENV TZ Asia/Tokyo
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update -y && apt-get upgrade -y \
+    && apt-get --fix-missing install -y sudo build-essential autoconf cmake \
+        vim tmux tzdata locales dialog git openssh-server bash-completion \
+        snapd jq sqlite3 curl nodejs npm default-jre unzip \
+        libgeos-dev libsnappy-dev fontconfig fonts-ipaexfont fonts-ipafont \
+        libopenmpi-dev \
+        libmecab-dev mecab mecab-ipadic-utf8 mecab-utils file \
+    && localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+
+
+# install firefox-esr
+RUN apt-get install software-properties-common \
+    && sudo snap remove -y firefox \
+    && sudo apt purge -y firefox \
+    && sudo add-apt-repository -y ppa:mozillateam/ppa \
+    && sudo apt update \
+    && sudo apt install firefox-esr firefox-esr-locale-ja
+
+
+# # for google-chrome
+# # browser
+RUN apt-get install -y x11vnc xvfb fluxbox wget wmctrl gnupg2 \
+    && (wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub \
+        | apt-key add - && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" \
+        >> /etc/apt/sources.list.d/google.list) \
+    && apt-get update -y && apt-get install -y google-chrome-stable
+
+
+# # # driver and chrome
+# RUN apt-get install -y libgbm-dev x11vnc xvfb \
+#     && CHROMEDRIVER_VERSION=$(curl -sS https://googlechromelabs.github.io/chrome-for-testing/LATEST_RELEASE_STABLE) \
+#     && curl -sSL -o /tmp/chromedriver-linux64.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$CHROMEDRIVER_VERSION/linux64/chromedriver-linux64.zip \
+#     && cd /tmp && unzip chromedriver-linux64.zip && mv chromedriver-linux64/chromedriver /usr/local/bin/ \
+#     && curl -sSL -o /tmp/chrome-linux64.zip https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$CHROMEDRIVER_VERSION/linux64/chrome-linux64.zip \
+#     && cd /tmp && unzip chrome-linux64.zip && mv chrome-linux64 /opt
+# 
+# ENV PATH $PATH:/opt/chrome-linux64
+
+# # # for Firefox
+# RUN apt-get install -y xvfb
+# RUN install -d -m 0755 /etc/apt/keyrings \
+#     && (wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
+#         | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null) \
+#     && (echo "deb [signed-by=/etc/apt/keyrings/packages.mozilla.org.asc] https://packages.mozilla.org/apt mozilla main" \
+#         | sudo tee -a /etc/apt/sources.list.d/mozilla.list > /dev/null) \
+#     && echo ' \
+# Package: * \
+# Pin: origin packages.mozilla.org \
+# Pin-Priority: 1000 \
+# ' | sudo tee /etc/apt/preferences.d/mozilla \
+#     && sudo apt-get update -y && sudo apt-get install -y firefox
+# 
+# RUN url_geckodriver=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest \
+#           | jq -r '.assets[].browser_download_url | select(contains("linux64") and endswith("gz"))') \
+#     && (curl -s -L "$url_geckodriver" | tar -xz) \
+#     && chmod +x geckodriver \
+#     && mv geckodriver /usr/local/bin/
+
+RUN apt-get --fix-missing install -y --no-install-recommends \
+        python3.10 \
+        python3.10-dev \
+        python3-pip \
+        python3-setuptools \
+        python3-wheel
+
+RUN ln -s /usr/bin/python3.10 /usr/bin/python \
+    && ln -s /usr/bin/pdb3 /usr/bin/pdb
+
+ENV LANG="ja_JP.UTF-8" \
+    LANGUAGE="ja_JP:ja" \
+    LC_ALL="ja_JP.UTF-8" \
+    TZ="Asia/Tokyo" \
+    TERM="xterm"
+
+# ======================== #
+# MeCab
+WORKDIR /tmp
+
+RUN git config --global http.postBuffer 1048576000 \
+    && git clone https://github.com/neologd/mecab-ipadic-neologd.git \
+    && cd mecab-ipadic-neologd && bin/install-mecab-ipadic-neologd -n -a -y
+RUN ln -s /etc/mecabrc /usr/local/etc/mecabrc
+
+RUN python -m pip install --upgrade pip==21.0.1
+
+# upgrade system
+RUN apt-get upgrade -y \
+    && apt-get autoremove -y \
+    && apt-get clean -y
+    # && rm -rf /var/lib/apt/lists/*
+
+# setup general user
+ARG user_id=1000
+ARG group_id=1000
+ARG user_name
+ARG group_name
+
+RUN groupadd --gid $group_id $group_name
+RUN useradd -s /bin/bash --uid $user_id \
+    --gid $group_id -m $user_name
+ARG home_dir=/home/$user_name
+COPY rc $home_dir
+
+RUN echo $user_name:$user_name | chpasswd
+RUN echo $user_name ALL=\(root\) NOPASSWD:ALL \
+    > /etc/sudoers.d/$user_name\
+    && chmod 0440 /etc/sudoers.d/$user_name
+
+RUN chown -R $user_name:$group_name $home_dir 
+USER $user_name
+
+# Poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# deta space
+RUN curl -fsSL https://deta.space/assets/space-cli.sh | sh
+
+# Switch back to dialog for any ad-hoc use of apt-get
+ENV DEBIAN_FRONTEND=dialog
+
