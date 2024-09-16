@@ -33,6 +33,8 @@ RUN apt-get --fix-missing install -y --no-install-recommends \
         python3-pip \
         python3-setuptools \
         python3-wheel
+        # python3.10-venv # for pipx
+
 
 RUN ln -s /usr/bin/python3.10 /usr/bin/python \
     && ln -s /usr/bin/pdb3 /usr/bin/pdb
@@ -44,7 +46,7 @@ ENV LANG="ja_JP.UTF-8" \
     TERM="xterm"
 
 
-RUN python -m pip install --upgrade pip
+RUN python -m pip install --upgrade pip pipx
 
 # upgrade system
 RUN apt-get upgrade -y \
@@ -74,6 +76,8 @@ RUN chown -R $user_name:$group_name $home_dir
 USER $user_name
 
 RUN python -m pip install --user -U -r $home_dir/requirements.txt
+# RUN pipx install langflow --python=python3.10 --fetch-missing-python
+# RUN pipx inject langflow -r $home_dir/requirements.txt
 
 
 # Switch back to dialog for any ad-hoc use of apt-get
