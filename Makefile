@@ -76,8 +76,11 @@ build-no-cache:
 
 reup: down up
 
-clean: clean-container
+clean: clean-container clean-cache
 
 clean-container:
 	docker compose down --rmi all
+
+clean-cache:
+	rm -rf local_cache/ __pycache__
 
