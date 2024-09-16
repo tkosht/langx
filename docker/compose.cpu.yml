@@ -11,24 +11,11 @@ services:
     tty: true
     init: true
     privileged: true
-    # network_mode: "host"  # for X / chrome driver
     volumes:
       - .:/home/$user_name/workspace
-      # for chrome driver
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /var/run/dbus/system_bus_socket:/var/run/dbus/system_bus_socket
-      - ~/.Xauthority:/home/$user_name/.Xauthority
-      - /run/user/1000/bus:/run/user/1000/bus
-      - /run/snapd.socket:/run/snapd.socket
     working_dir: /home/$user_name/workspace
     environment:
-      - STREAMLIT_BROWSER_GATHER_USAGE_STATS=false
-      - DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
-      - DISPLAY=localhost:10.0
       - LANGFLOW_DATABASE_URL=sqlite:///./data/langflow.db
-    sysctls:
-      - net.core.somaxconn=$somaxconn
-      - net.ipv4.tcp_syncookies=0
     ports:
       - "17860:7860"     # gradio/langflow
     command: >
